@@ -615,7 +615,7 @@
         }
         
         /* 自定义播放按钮样式 */
-        /* 音乐控制容器 */
+        /* 音乐控制容器 - 默认显示 */
         .music-controls {
             position: fixed;
             bottom: 30px;
@@ -628,92 +628,11 @@
             gap: 10px;
         }
 
-        #playButton {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 12px 25px;
-            border-radius: 25px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(255, 192, 203, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            font-size: 16px;
-            color: #FF69B4;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        #playButton:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(255, 192, 203, 0.6);
-            background: rgba(255, 255, 255, 0.95);
-        }
-
-        #playButton.playing {
-            background: rgba(255, 192, 203, 0.9);
-            color: white;
-        }
-
-        .play-icon {
-            font-size: 20px;
-            line-height: 1;
-        }
-
-        /* 音量控制 */
-        .volume-control {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(255, 255, 255, 0.8);
-            padding: 8px 15px;
-            border-radius: 15px;
-            backdrop-filter: blur(5px);
-        }
-
-        .volume-icon {
-            color: #FF69B4;
-            font-size: 16px;
-        }
-
-        #volumeSlider {
-            -webkit-appearance: none;
-            width: 100px;
-            height: 4px;
-            border-radius: 2px;
-            background: rgba(255, 192, 203, 0.3);
-            outline: none;
-            transition: all 0.3s ease;
-        }
-
-        #volumeSlider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #FF69B4;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        #volumeSlider::-webkit-slider-thumb:hover {
-            transform: scale(1.2);
-            background: #FF1493;
-        }
-
-        #volumeSlider::-moz-range-thumb {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #FF69B4;
-            cursor: pointer;
-            border: none;
-            transition: all 0.3s ease;
-        }
-
-        #volumeSlider::-moz-range-thumb:hover {
-            transform: scale(1.2);
-            background: #FF1493;
+        /* 在移动端隐藏音乐控制 */
+        @media screen and (max-width: 768px) {
+            .music-controls {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -738,22 +657,7 @@
 
         <audio id="backgroundMusic" crossorigin="anonymous" loop preload="auto">
             <source src="https://cdn05.xiaogj.com/file/mp3/3e5d6c628c9d42c7bdfd91b86bd89f49/83f0ce406cf7ea7e0128a4248d2bb9d8.mp3" type="audio/mpeg">
-            <source src="KissTheRain.mp3" type="audio/mpeg">
-            <!-- 如果在线CDN加载失败，会尝试加载本地文件 -->
         </audio>
-        
-        <!-- 音乐控制区域 -->
-        <div class="music-controls">
-            <div id="playButton">
-                <span class="play-icon">🎵</span>
-                <span class="play-text">点击播放音乐</span>
-            </div>
-            <div class="volume-control">
-                <span class="volume-icon">🔊</span>
-                <input type="range" id="volumeSlider" min="0" max="100" value="30">
-            </div>
-            </div>
-        </div>
     </div>
 
     <!-- 添加鼠标跟随元素 -->
@@ -824,119 +728,25 @@
         // 音频播放处理
         window.addEventListener('DOMContentLoaded', function() {
             const music = document.getElementById('backgroundMusic');
-            const playButton = document.getElementById('playButton');
-            let isPlaying = false;
             
-            // 音量控制
-            const volumeSlider = document.getElementById('volumeSlider');
+            // 设置适中的音量
+            music.volume = 0.3;  // 30%音量
             
-            // 初始化音量
-            music.volume = volumeSlider.value / 100;
-            
-            // 监听音量变化
-            volumeSlider.addEventListener('input', () => {
-                music.volume = volumeSlider.value / 100;
-                updateVolumeIcon();
-            });
-            
-            // 更新音量图标
-            function updateVolumeIcon() {
-                const volumeIcon = document.querySelector('.volume-icon');
-                const volume = volumeSlider.value;
-                if (volume === 0) {
-                    volumeIcon.textContent = '🔇';
-                } else if (volume < 30) {
-                    volumeIcon.textContent = '🔈';
-                } else if (volume < 70) {
-                    volumeIcon.textContent = '🔉';
-                } else {
-                    volumeIcon.textContent = '🔊';
-                }
+            // 监听页面交互来开始播放音乐
+            function startMusic() {
+                music.play().then(() => {
+                    console.log('音乐开始播放');
+                    // 移除事件监听，避免重复触发
+                    document.removeEventListener('click', startMusic);
+                    document.removeEventListener('touchstart', startMusic);
+                }).catch(error => {
+                    console.error('音乐播放失败:', error.message);
+                });
             }
             
-            // 初始化音量图标
-            updateVolumeIcon();
-            
-            // 更新播放按钮文本和样式
-            function updatePlayButton() {
-                            const playText = playButton.querySelector('.play-text');
-            const playIcon = playButton.querySelector('.play-icon');
-            if (isPlaying) {
-                playText.textContent = '点击暂停音乐';
-                playIcon.textContent = '⏸';
-                playButton.classList.add('playing');
-            } else {
-                playText.textContent = '点击播放音乐';
-                playIcon.textContent = '🎵';
-                playButton.classList.remove('playing');
-            }
-            }
-            
-            // 播放/暂停切换
-            function togglePlay() {
-                if (isPlaying) {
-                    music.pause();
-                } else {
-                    music.play().then(() => {
-                        isPlaying = true;
-                        updatePlayButton();
-                    }).catch(error => {
-                        console.log('播放失败:', error);
-                    });
-                }
-            }
-            
-            // 点击播放按钮时切换播放状态
-            playButton.addEventListener('click', togglePlay);
-            
-            // 监听音乐播放状态
-            music.addEventListener('playing', () => {
-                isPlaying = true;
-                updatePlayButton();
-            });
-            
-            music.addEventListener('pause', () => {
-                isPlaying = false;
-                updatePlayButton();
-            });
-            
-            // 尝试自动播放
-            music.play().then(() => {
-                isPlaying = true;
-                updatePlayButton();
-                console.log('音乐开始播放');
-            }).catch((error) => {
-                isPlaying = false;
-                updatePlayButton();
-                console.error('音乐播放失败:', error.message);
-                
-                // 如果是格式不支持的错误，尝试加载备用源
-                if (error.name === 'NotSupportedError') {
-                    // 获取所有音频源
-                    const sources = music.getElementsByTagName('source');
-                    let currentSource = 0;
-                    
-                    // 定义加载下一个源的函数
-                    const tryNextSource = () => {
-                        if (currentSource < sources.length) {
-                            music.src = sources[currentSource].src;
-                            music.load();
-                            music.play().then(() => {
-                                isPlaying = true;
-                                updatePlayButton();
-                                console.log('使用备用音源播放成功');
-                            }).catch((err) => {
-                                console.error('备用音源播放失败:', err.message);
-                                currentSource++;
-                                tryNextSource();
-                            });
-                        }
-                    };
-                    
-                    // 开始尝试加载备用源
-                    tryNextSource();
-                }
-            });
+            // 同时监听点击和触摸事件，确保在移动端和桌面端都能正常工作
+            document.addEventListener('click', startMusic, { once: true });
+            document.addEventListener('touchstart', startMusic, { once: true });
         });
 
         const birthdayWishes = [
