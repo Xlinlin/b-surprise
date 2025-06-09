@@ -714,7 +714,11 @@
         <div class="floating-hearts" id="heartsContainer"></div>
         <div class="barrage-container" id="barrageContainer"></div>
 
-        <audio id="backgroundMusic" src="https://cdn05.xiaogj.com/file/mp3/3e5d6c628c9d42c7bdfd91b86bd89f49/83f0ce406cf7ea7e0128a4248d2bb9d8.mp3" loop preload="auto"></audio>
+        <audio id="backgroundMusic" crossorigin="anonymous" loop preload="auto">
+            <source src="https://cdn05.xiaogj.com/file/mp3/3e5d6c628c9d42c7bdfd91b86bd89f49/83f0ce406cf7ea7e0128a4248d2bb9d8.mp3" type="audio/mpeg">
+            <source src="KissTheRain.mp3" type="audio/mpeg">
+            <!-- 如果在线CDN加载失败，会尝试加载本地文件 -->
+        </audio>
         
         <!-- 音乐控制区域 -->
         <div class="music-controls">
@@ -878,9 +882,38 @@
             music.play().then(() => {
                 isPlaying = true;
                 updatePlayButton();
-            }).catch(() => {
+                console.log('音乐开始播放');
+            }).catch((error) => {
                 isPlaying = false;
                 updatePlayButton();
+                console.error('音乐播放失败:', error.message);
+                
+                // 如果是格式不支持的错误，尝试加载备用源
+                if (error.name === 'NotSupportedError') {
+                    // 获取所有音频源
+                    const sources = music.getElementsByTagName('source');
+                    let currentSource = 0;
+                    
+                    // 定义加载下一个源的函数
+                    const tryNextSource = () => {
+                        if (currentSource < sources.length) {
+                            music.src = sources[currentSource].src;
+                            music.load();
+                            music.play().then(() => {
+                                isPlaying = true;
+                                updatePlayButton();
+                                console.log('使用备用音源播放成功');
+                            }).catch((err) => {
+                                console.error('备用音源播放失败:', err.message);
+                                currentSource++;
+                                tryNextSource();
+                            });
+                        }
+                    };
+                    
+                    // 开始尝试加载备用源
+                    tryNextSource();
+                }
             });
         });
 
@@ -913,7 +946,7 @@
         const barrageContainer = document.getElementById('barrageContainer');
         const minDuration = 15; // 弹幕最短滚动时间 (秒)
         const maxDuration = 30; // 弹幕最长滚动时间 (秒)
-        const spawnInterval = 1500; // 每隔 1.5 秒生成一条弹幕 (毫秒)
+        let spawnInterval = 1500; // 每隔 1.5 秒生成一条弹幕 (毫秒)
         const maxBarrageCount = 20; // 屏幕上最多同时存在的弹幕数量
         const laneHeight = 50; // 每个弹幕轨道的高度（像素）
         const totalLanes = Math.floor(window.innerHeight / laneHeight); // 总轨道数
