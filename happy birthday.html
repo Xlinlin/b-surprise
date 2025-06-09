@@ -6,7 +6,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <title>生日快乐，我的爱！</title>
+    <title>财富自由指南</title>
     <style>
         /* 封面页样式 */
         .cover-page {
@@ -611,28 +611,18 @@
 
         /* 音乐播放器样式 */
         audio {
-            display: none; /* 隐藏音频控件 */
+            display: none !important;
+            visibility: hidden;
+            width: 0;
+            height: 0;
+            position: absolute;
+            left: -9999px;
         }
         
         /* 自定义播放按钮样式 */
-        /* 音乐控制容器 - 默认显示 */
+        /* 音乐控制容器 - 完全隐藏 */
         .music-controls {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1002;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
-
-        /* 在移动端隐藏音乐控制 */
-        @media screen and (max-width: 768px) {
-            .music-controls {
-                display: none;
-            }
+            display: none !important;
         }
     </style>
 </head>
