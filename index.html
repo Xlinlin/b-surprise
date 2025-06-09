@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>生日快乐，我的爱！</title>
+    <style>
+        /* 封面页样式 */
+        .cover-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #1a1f35;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='800' viewBox='0 0 800 800'%3E%3Cdefs%3E%3ClinearGradient id='gold1' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23ffd700;stop-opacity:0.3'/%3E%3Cstop offset='100%25' style='stop-color:%23ffa500;stop-opacity:0.1'/%3E%3C/linearGradient%3E%3ClinearGradient id='gold2' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23daa520;stop-opacity:0.2'/%3E%3Cstop offset='100%25' style='stop-color:%23ffd700;stop-opacity:0.1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg transform='scale(0.8)'%3E%3Cpath d='M400,0 L800,200 L800,600 L400,800 L0,600 L0,200 Z' fill='url(%23gold1)' opacity='0.5'/%3E%3C/g%3E%3Cg transform='translate(400,400) rotate(30) scale(0.6)'%3E%3Cpath d='M-400,-200 L400,-200 L400,200 L-400,200 Z' fill='url(%23gold2)' opacity='0.3'/%3E%3C/g%3E%3Cg transform='translate(0,0)'%3E%3Ccircle cx='150' cy='150' r='2' fill='%23ffd700' opacity='0.5'/%3E%3Ccircle cx='650' cy='150' r='2' fill='%23ffd700' opacity='0.5'/%3E%3Ccircle cx='150' cy='650' r='2' fill='%23ffd700' opacity='0.5'/%3E%3Ccircle cx='650' cy='650' r='2' fill='%23ffd700' opacity='0.5'/%3E%3C/g%3E%3Cg transform='translate(400,400)'%3E%3Cpath d='M-50,-50 L50,-50 L50,50 L-50,50 Z' fill='none' stroke='%23ffd700' stroke-width='1' opacity='0.2' transform='rotate(45)'/%3E%3Cpath d='M-75,-75 L75,-75 L75,75 L-75,75 Z' fill='none' stroke='%23ffd700' stroke-width='1' opacity='0.2' transform='rotate(45)'/%3E%3Cpath d='M-100,-100 L100,-100 L100,100 L-100,100 Z' fill='none' stroke='%23ffd700' stroke-width='1' opacity='0.2' transform='rotate(45)'/%3E%3C/g%3E%3Cg%3E%3Cpath d='M100,100 Q400,50 700,100 T100,100' fill='none' stroke='%23ffd700' stroke-width='1' opacity='0.2'/%3E%3Cpath d='M100,700 Q400,650 700,700 T100,700' fill='none' stroke='%23ffd700' stroke-width='1' opacity='0.2'/%3E%3C/g%3E%3C/svg%3E");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: all 0.8s ease-in-out;
+        }
+
+        .cover-page.hide {
+            opacity: 0;
+            transform: scale(1.5);
+            pointer-events: none;
+        }
+
+        .wealth-button {
+            padding: 25px 50px;
+            font-size: 28px;
+            background: linear-gradient(45deg, #FFD700, #DAA520);
+            color: #1a1f35;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 15px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2),
+                       0 0 40px rgba(255, 215, 0, 0.1),
+                       inset 0 0 15px rgba(255, 215, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: 'Microsoft YaHei', sans-serif;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 2px;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .wealth-button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3),
+                       0 0 60px rgba(255, 215, 0, 0.2),
+                       inset 0 0 20px rgba(255, 215, 0, 0.3);
+            background: linear-gradient(45deg, #DAA520, #FFD700);
+            border-color: rgba(255, 215, 0, 0.5);
+        }
+
+        .wealth-button:active {
+            transform: translateY(1px) scale(0.98);
+        }
+
+        .wealth-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255, 215, 0, 0.1),
+                transparent
+            );
+            transform: rotate(45deg);
+            animation: shimmer 2s infinite;
+        }
+
+        .wealth-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(
+                circle at center,
+                rgba(255, 215, 0, 0.2) 0%,
+                transparent 70%
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .wealth-button:hover::after {
+            opacity: 1;
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translate(-50%, -50%) rotate(45deg);
+            }
+            100% {
+                transform: translate(50%, 50%) rotate(45deg);
+            }
+        }
+
+        /* 主页面初始隐藏 */
+        .main-content {
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .main-content.show {
+            opacity: 1;
+        }
+
+        @keyframes floatBackground {
+            0% { background-position: 0 0; }
+            100% { background-position: 300px 300px; }
+        }
+
+        @keyframes softPulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 0.8; }
+            100% { opacity: 0.6; }
+        }
+
+        body {
+            margin: 0;
+            overflow: hidden; /* 隐藏滚动条 */
+            background-color: #fff5f7;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'%3E%3Cdefs%3E%3ClinearGradient id='heartGradient' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23ffb7d5;stop-opacity:0.6'/%3E%3Cstop offset='100%25' style='stop-color:%23ff69b4;stop-opacity:0.6'/%3E%3C/linearGradient%3E%3ClinearGradient id='flowerGradient' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23ffd1dc;stop-opacity:0.5'/%3E%3Cstop offset='100%25' style='stop-color:%23ffb7d5;stop-opacity:0.5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg transform='scale(0.3)'%3E%3Cpath d='M300,430 C380,430 460,330 460,230 C460,130 400,80 300,170 C200,80 140,130 140,230 C140,330 220,430 300,430 Z' fill='url(%23heartGradient)' opacity='0.6'/%3E%3C/g%3E%3Cg transform='translate(400,300) scale(0.25)'%3E%3Cpath d='M300,430 C380,430 460,330 460,230 C460,130 400,80 300,170 C200,80 140,130 140,230 C140,330 220,430 300,430 Z' fill='url(%23heartGradient)' opacity='0.4'/%3E%3C/g%3E%3Cg transform='translate(200,400) scale(0.2)'%3E%3Cpath d='M300,430 C380,430 460,330 460,230 C460,130 400,80 300,170 C200,80 140,130 140,230 C140,330 220,430 300,430 Z' fill='url(%23heartGradient)' opacity='0.3'/%3E%3C/g%3E%3Cg transform='translate(150,150)'%3E%3Ccircle cx='0' cy='0' r='15' fill='url(%23flowerGradient)'/%3E%3Ccircle cx='-20' cy='-20' r='10' fill='url(%23flowerGradient)'/%3E%3Ccircle cx='20' cy='-20' r='10' fill='url(%23flowerGradient)'/%3E%3Ccircle cx='-20' cy='20' r='10' fill='url(%23flowerGradient)'/%3E%3Ccircle cx='20' cy='20' r='10' fill='url(%23flowerGradient)'/%3E%3C/g%3E%3Cg transform='translate(450,450)'%3E%3Ccircle cx='0' cy='0' r='12' fill='url(%23flowerGradient)'/%3E%3Ccircle cx='-15' cy='-15' r='8' fill='url(%23flowerGradient)'/%3E%3Ccircle cx='15' cy='-15' r='8' fill='url(%23flowerGradient)'/%3E%3Ccircle cx='-15' cy='15' r='8' fill='url(%23flowerGradient)'/%3E%3Ccircle cx='15' cy='15' r='8' fill='url(%23flowerGradient)'/%3E%3C/g%3E%3C/svg%3E");
+            animation: floatBackground 60s linear infinite;
+            background-size: 300px 300px;
+            background-repeat: repeat;
+            background-position: center;
+            min-height: 100vh; /* 确保背景覆盖整个视口 */
+            position: relative; /* 确保子元素可以定位 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-family: 'YouYuan', 'Microsoft YaHei', sans-serif; /* 优雅字体 */
+        }
+
+        /* 添加渐变遮罩层 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255,182,193,0.3), rgba(255,240,245,0.3));
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* 鼠标跟随效果 */
+        .mouse-follower {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 105, 180, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.15s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .mouse-follower::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: rgba(255, 105, 180, 0.8);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* 点击特效 */
+        .click-heart {
+            position: fixed;
+            font-size: 20px;
+            color: #FF69B4;
+            pointer-events: none;
+            animation: clickHeart 1s ease-out forwards;
+            z-index: 9999;
+        }
+
+        @keyframes clickHeart {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 1;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.5);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(2);
+                opacity: 0;
+            }
+        }
+
+        /* 添加浮动的爱心背景 */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.6);
+            animation: floatHeart 6s ease-in infinite;
+        }
+
+        /* 如果想用视频做背景，可以使用以下代码替换body的背景部分 */
+        /*
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        .video-background video {
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+        */
+
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* 导入手写字体 */
+        @import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap');
+
+        .title-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.45);
+            padding: min(40px, 8vw) min(60px, 10vw);
+            border-radius: min(30px, 6vw);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px rgba(255, 192, 203, 0.6),
+                        0 0 0 1px rgba(255, 255, 255, 0.4) inset,
+                        0 0 100px rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            animation: containerBreath 3s ease-in-out infinite;
+            width: min(80%, 600px);
+            margin: auto;
+        }
+
+        /* 移动端适配 */
+        @media screen and (max-width: 768px) {
+            .title-container {
+                padding: 25px 35px;
+                width: 85%;
+                max-width: 350px;
+            }
+
+            .main-title {
+                font-size: min(2.8em, 13vw) !important;
+                margin-bottom: 15px;
+                letter-spacing: 5px;
+            }
+
+            .subtitle {
+                font-size: min(1.6em, 7vw) !important;
+                margin: 8px 0;
+            }
+
+            .barrage-item {
+                font-size: min(1.1em, 4.5vw);
+                padding: 4px 8px;
+            }
+
+            .music-controls {
+                bottom: 25px;
+                transform: scale(0.95);
+                background: rgba(255, 255, 255, 0.9);
+                padding: 10px 15px;
+                border-radius: 20px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            #playButton {
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+
+            .volume-control {
+                margin-top: 8px;
+            }
+        }
+
+        /* 超小屏幕适配 */
+        @media screen and (max-width: 320px) {
+            .title-container {
+                padding: 15px 20px;
+            }
+
+            .main-title {
+                font-size: min(2.5em, 12vw) !important;
+            }
+
+            .subtitle {
+                font-size: min(1.5em, 6vw) !important;
+            }
+
+            .barrage-item {
+                font-size: min(1em, 4vw);
+            }
+
+            .music-controls {
+                transform: scale(0.8);
+            }
+        }
+
+        @keyframes containerBreath {
+            0%, 100% { 
+                transform: translate(-50%, -50%) scale(1);
+                box-shadow: 0 8px 32px rgba(255, 192, 203, 0.6),
+                           0 0 0 1px rgba(255, 255, 255, 0.4) inset;
+            }
+            50% { 
+                transform: translate(-50%, -50%) scale(1.03);
+                box-shadow: 0 12px 48px rgba(255, 192, 203, 0.8),
+                           0 0 0 1.5px rgba(255, 255, 255, 0.6) inset;
+            }
+        }
+
+        .main-title {
+            color: #FF69B4;
+            font-size: 4.5em;
+            font-weight: bold;
+            text-shadow: 2px 2px 15px rgba(255, 105, 180, 0.5),
+                         0 0 30px rgba(255, 105, 180, 0.3);
+            margin-bottom: 20px;
+            font-family: 'YouYuan', 'Microsoft YaHei', sans-serif;
+            letter-spacing: 8px;
+            animation: titleGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { 
+                text-shadow: 2px 2px 15px rgba(255, 105, 180, 0.5),
+                            0 0 30px rgba(255, 105, 180, 0.3);
+            }
+            50% { 
+                text-shadow: 2px 2px 20px rgba(255, 105, 180, 0.8),
+                            0 0 40px rgba(255, 105, 180, 0.5);
+            }
+        }
+
+        .subtitle {
+            color: #FF69B4;
+            font-size: 2.2em;
+            text-shadow: 1px 1px 10px rgba(255, 105, 180, 0.4);
+            font-family: 'Ma Shan Zheng', cursive;
+            letter-spacing: 4px;
+            opacity: 0.95;
+            animation: subtitleFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes subtitleFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .barrage-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* 允许点击穿透 */
+            z-index: 1; /* 弹幕在背景之上，标题之下 */
+        }
+
+        /* 定义一组优雅的字体样式 */
+        @font-face {
+            font-family: 'Ma Shan Zheng';
+            src: url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap');
+        }
+
+        @font-face {
+            font-family: 'Zhi Mang Xing';
+            src: url('https://fonts.googleapis.com/css2?family=Zhi+Mang+Xing&display=swap');
+        }
+
+        .barrage-item {
+            position: absolute;
+            white-space: nowrap;
+            font-size: 1.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 
+                        -1px -1px 4px rgba(0, 0, 0, 0.5),
+                        0 0 10px rgba(255, 182, 193, 0.5);
+            opacity: 0;
+            transform: translateX(100vw);
+            pointer-events: auto; /* 启用鼠标事件 */
+            letter-spacing: 1px;
+            will-change: transform, opacity, filter;
+            animation: scroll-left var(--duration) linear forwards;
+            transition: all 0.3s ease;
+            z-index: 2;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 15px;
+            background: linear-gradient(90deg, 
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.1) 50%,
+                rgba(255, 255, 255, 0) 100%);
+        }
+
+        /* 鼠标悬停效果 */
+        .barrage-item:hover {
+            animation-play-state: paused;
+            transform: scale(1.2) translateY(-2px);
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 20px rgba(255, 192, 203, 0.4);
+            text-shadow: 0 0 10px #fff,
+                        0 0 20px #fff,
+                        0 0 30px #ff1493,
+                        0 0 40px #ff1493;
+        }
+
+        /* 霓虹灯效果 */
+        .barrage-neon {
+            animation: neonGlow 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes neonGlow {
+            from {
+                text-shadow: 0 0 10px #fff,
+                            0 0 20px #fff,
+                            0 0 30px #ff1493,
+                            0 0 40px #ff1493;
+            }
+            to {
+                text-shadow: 0 0 5px #fff,
+                            0 0 10px #fff,
+                            0 0 15px #ff1493,
+                            0 0 20px #ff1493;
+            }
+        }
+
+        /* 彩虹文字效果 */
+        .barrage-rainbow {
+            background: linear-gradient(to right, 
+                #ff0000, #ff8000, #ffff00, #00ff00, #00ffff, #0000ff, #8000ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: rainbow 8s linear infinite;
+        }
+
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        /* 3D效果 */
+        .barrage-3d {
+            transform-style: preserve-3d;
+            animation: rotate3D 3s ease-in-out infinite;
+        }
+
+        @keyframes rotate3D {
+            0%, 100% { transform: perspective(500px) rotateY(0deg); }
+            50% { transform: perspective(500px) rotateY(15deg); }
+        }
+
+        /* 弹幕波浪效果 */
+        .barrage-wave {
+            animation: wave 3s ease-in-out infinite;
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .barrage-item.golden {
+            color: #FFD700 !important;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8),
+                        0 0 20px rgba(255, 215, 0, 0.4),
+                        0 0 30px rgba(255, 215, 0, 0.2);
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        /* 定义不同的字体样式类 */
+        .font-style-1 {
+            font-family: 'Ma Shan Zheng', 'YouYuan', cursive;
+            font-weight: normal;
+        }
+
+        .font-style-2 {
+            font-family: 'Zhi Mang Xing', 'YouYuan', cursive;
+            font-weight: normal;
+        }
+
+        .font-style-3 {
+            font-family: 'YouYuan', 'Microsoft YaHei', sans-serif;
+            font-weight: bold;
+        }
+
+        .font-style-4 {
+            font-family: 'KaiTi', 'STKaiti', serif;
+            font-weight: normal;
+        }
+
+        .font-style-5 {
+            font-family: 'STXingkai', 'YouYuan', cursive;
+            font-weight: normal;
+        }
+
+        /* 定义不同的动画效果类 */
+        .animate-float {
+            animation: floatY 3s ease-in-out infinite;
+        }
+
+        @keyframes floatY {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        @keyframes scroll-left {
+            0% {
+                transform: translateX(100vw);
+                opacity: 0;
+            }
+            5% {
+                transform: translateX(95vw);
+                opacity: 1;
+            }
+            95% {
+                transform: translateX(5vw);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 0;
+            }
+        }
+
+        /* 音乐播放器样式 */
+        audio {
+            display: none; /* 隐藏音频控件 */
+        }
+        
+        /* 自定义播放按钮样式 */
+        /* 音乐控制容器 */
+        .music-controls {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1002;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #playButton {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 192, 203, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            font-size: 16px;
+            color: #FF69B4;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #playButton:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 192, 203, 0.6);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        #playButton.playing {
+            background: rgba(255, 192, 203, 0.9);
+            color: white;
+        }
+
+        .play-icon {
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        /* 音量控制 */
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 8px 15px;
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+        }
+
+        .volume-icon {
+            color: #FF69B4;
+            font-size: 16px;
+        }
+
+        #volumeSlider {
+            -webkit-appearance: none;
+            width: 100px;
+            height: 4px;
+            border-radius: 2px;
+            background: rgba(255, 192, 203, 0.3);
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        #volumeSlider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #FF69B4;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #volumeSlider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            background: #FF1493;
+        }
+
+        #volumeSlider::-moz-range-thumb {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #FF69B4;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        #volumeSlider::-moz-range-thumb:hover {
+            transform: scale(1.2);
+            background: #FF1493;
+        }
+    </style>
+</head>
+<body>
+    <!-- 封面页 -->
+    <div class="cover-page" id="coverPage">
+        <button class="wealth-button" id="wealthButton">
+            如何实现财富自由
+        </button>
+    </div>
+
+    <!-- 主内容区域 -->
+    <div class="main-content" id="mainContent">
+        <div class="title-container">
+            <div class="main-title">何琴</div>
+            <div class="subtitle">生日快乐！</div>
+            <div class="subtitle" style="font-size: 1.8em; margin-top: 10px;">致我最爱的老婆</div>
+        </div>
+
+        <div class="floating-hearts" id="heartsContainer"></div>
+        <div class="barrage-container" id="barrageContainer"></div>
+
+        <audio id="backgroundMusic" src="https://你的音乐文件在线地址" loop preload="auto"></audio>
+        
+        <!-- 音乐控制区域 -->
+        <div class="music-controls">
+            <div id="playButton">
+                <span class="play-icon">🎵</span>
+                <span class="play-text">点击播放音乐</span>
+            </div>
+            <div class="volume-control">
+                <span class="volume-icon">🔊</span>
+                <input type="range" id="volumeSlider" min="0" max="100" value="30">
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 添加鼠标跟随元素 -->
+    <div class="mouse-follower"></div>
+
+    <!-- 添加爱心动画的脚本 -->
+    <script>
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '❤';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 3) + 's'; // 3-6秒
+            heart.style.fontSize = (Math.random() * 10 + 15) + 'px'; // 15-25px
+            heart.style.opacity = Math.random() * 0.3 + 0.3; // 0.3-0.6
+            
+            document.querySelector('.floating-hearts').appendChild(heart);
+            
+            // 动画结束后移除爱心
+            heart.addEventListener('animationend', () => {
+                heart.remove();
+            });
+        }
+
+        // 每0.5秒创建一个新的爱心
+        setInterval(createHeart, 500);
+    </script>
+
+    <script>
+        // 页面切换处理
+        document.getElementById('wealthButton').addEventListener('click', function() {
+            // 隐藏封面页
+            document.getElementById('coverPage').classList.add('hide');
+            
+            // 显示主内容
+            setTimeout(() => {
+                document.getElementById('mainContent').classList.add('show');
+                // 自动播放音乐
+                document.getElementById('backgroundMusic').play().catch(error => {
+                    console.log('自动播放失败:', error);
+                });
+            }, 500);
+
+            // 触发一些特效
+            createManyHearts();
+        });
+
+        // 点击按钮时创建大量爱心
+        function createManyHearts() {
+            for(let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.innerHTML = '❤';
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                    heart.style.fontSize = (Math.random() * 30 + 20) + 'px';
+                    heart.style.opacity = Math.random() * 0.5 + 0.5;
+                    document.querySelector('.floating-hearts').appendChild(heart);
+                    
+                    heart.addEventListener('animationend', () => {
+                        heart.remove();
+                    });
+                }, i * 100);
+            }
+        }
+
+        // 音频播放处理
+        window.addEventListener('DOMContentLoaded', function() {
+            const music = document.getElementById('backgroundMusic');
+            const playButton = document.getElementById('playButton');
+            let isPlaying = false;
+            
+            // 音量控制
+            const volumeSlider = document.getElementById('volumeSlider');
+            
+            // 初始化音量
+            music.volume = volumeSlider.value / 100;
+            
+            // 监听音量变化
+            volumeSlider.addEventListener('input', () => {
+                music.volume = volumeSlider.value / 100;
+                updateVolumeIcon();
+            });
+            
+            // 更新音量图标
+            function updateVolumeIcon() {
+                const volumeIcon = document.querySelector('.volume-icon');
+                const volume = volumeSlider.value;
+                if (volume === 0) {
+                    volumeIcon.textContent = '🔇';
+                } else if (volume < 30) {
+                    volumeIcon.textContent = '🔈';
+                } else if (volume < 70) {
+                    volumeIcon.textContent = '🔉';
+                } else {
+                    volumeIcon.textContent = '🔊';
+                }
+            }
+            
+            // 初始化音量图标
+            updateVolumeIcon();
+            
+            // 更新播放按钮文本和样式
+            function updatePlayButton() {
+                            const playText = playButton.querySelector('.play-text');
+            const playIcon = playButton.querySelector('.play-icon');
+            if (isPlaying) {
+                playText.textContent = '点击暂停音乐';
+                playIcon.textContent = '⏸';
+                playButton.classList.add('playing');
+            } else {
+                playText.textContent = '点击播放音乐';
+                playIcon.textContent = '🎵';
+                playButton.classList.remove('playing');
+            }
+            }
+            
+            // 播放/暂停切换
+            function togglePlay() {
+                if (isPlaying) {
+                    music.pause();
+                } else {
+                    music.play().then(() => {
+                        isPlaying = true;
+                        updatePlayButton();
+                    }).catch(error => {
+                        console.log('播放失败:', error);
+                    });
+                }
+            }
+            
+            // 点击播放按钮时切换播放状态
+            playButton.addEventListener('click', togglePlay);
+            
+            // 监听音乐播放状态
+            music.addEventListener('playing', () => {
+                isPlaying = true;
+                updatePlayButton();
+            });
+            
+            music.addEventListener('pause', () => {
+                isPlaying = false;
+                updatePlayButton();
+            });
+            
+            // 尝试自动播放
+            music.play().then(() => {
+                isPlaying = true;
+                updatePlayButton();
+            }).catch(() => {
+                isPlaying = false;
+                updatePlayButton();
+            });
+        });
+
+        const birthdayWishes = [
+            "老婆生日快乐！你是我生命中最美丽的风景。",
+            "亲爱的，愿你每天都甜甜蜜蜜，笑口常开！",
+            "宝贝，生日快乐！谢谢你一直以来的陪伴与理解。",
+            "有你在，每天都是情人节。生日快乐，我的爱人！",
+            "致我最爱的你，愿你所愿皆如愿，所行化坦途。",
+            "感谢有你，让我的世界充满阳光。生日快乐，我的太阳！",
+            "时光不老，我们不散。生日快乐，我的唯一！",
+            "愿所有美好都如期而至，生日快乐，我的女王！",
+            "老婆大人，生日快乐！饭我来做，碗我来洗，你只管开心！",
+            "吃好喝好，永远不老！生日快乐，我的吃货老婆！",
+            "柴米油盐是你，风花雪月也是你。生日快乐，老婆！",
+            "今天你最大！生日快乐，我的宝藏女孩！",
+            "愿你眼里有星辰，心中有大海，生日快乐，亲爱的！",
+            "生日快乐，我的挚爱！未来还有无数个生日，我们一起过。",
+            "愿我爱的人，岁岁平安，事事胜意。生日快乐！",
+            "你是我生命中最棒的礼物，生日快乐，我的老婆！",
+            "陪你到老，爱你到老。生日快乐，我的老婆！",
+            "你的微笑，是我最大的幸福。生日快乐，永远爱你！",
+            "此生有幸与你相伴，生日快乐，我的此生挚爱！",
+            "生日快乐！愿你被幸福包围，永远美丽！",
+            "祝愿我最爱的老婆生日快乐，天天开心！",
+            "愿你生日充满欢乐，未来一切顺利！",
+            "祝老婆生日快乐！永远年轻漂亮！"
+        ];
+
+        const barrageContainer = document.getElementById('barrageContainer');
+        const minDuration = 15; // 弹幕最短滚动时间 (秒)
+        const maxDuration = 30; // 弹幕最长滚动时间 (秒)
+        const spawnInterval = 1500; // 每隔 1.5 秒生成一条弹幕 (毫秒)
+        const maxBarrageCount = 20; // 屏幕上最多同时存在的弹幕数量
+        const laneHeight = 50; // 每个弹幕轨道的高度（像素）
+        const totalLanes = Math.floor(window.innerHeight / laneHeight); // 总轨道数
+        const usedLanes = new Set(); // 记录已使用的轨道
+
+        // 定义一组漂亮的颜色
+        const colors = [
+            '#FFB7C5', // 浅粉红
+            '#FF69B4', // 粉红
+            '#FFB6C1', // 浅粉色
+            '#FFC0CB', // 粉色
+            '#FF82AB', // 暗粉红
+            '#FF8FAB', // 珊瑚粉
+            '#FFB6C1', // 浅粉
+            '#FFA07A', // 浅鲑鱼色
+            '#FF69B4', // 热粉红
+            '#DDA0DD', // 梅红色
+            '#EE82EE', // 紫罗兰
+            '#FFC3A0', // 浅珊瑚色
+            '#FFD700', // 金色
+            '#F08080', // 浅珊瑚红
+            '#FFB4B4'  // 浅红
+        ];
+
+        // 获取可用的轨道
+        function getAvailableLane() {
+            const availableLanes = [];
+            for (let i = 0; i < totalLanes; i++) {
+                if (!usedLanes.has(i)) {
+                    availableLanes.push(i);
+                }
+            }
+            if (availableLanes.length === 0) {
+                return null;
+            }
+            const randomIndex = Math.floor(Math.random() * availableLanes.length);
+            const lane = availableLanes[randomIndex];
+            usedLanes.add(lane);
+            return lane;
+        }
+
+        // 释放轨道
+        function releaseLane(lane) {
+            usedLanes.delete(lane);
+        }
+
+        // 智能弹幕生成控制
+        let isPaused = false;
+        let currentSpeed = 1.0;
+        let currentDensity = 1.0;
+
+        // 判断设备性能
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        const isLowPerfDevice = isMobile || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
+
+        // 根据设备性能调整参数
+        if (isLowPerfDevice) {
+            maxBarrageCount = Math.floor(maxBarrageCount * 0.6);
+            spawnInterval = Math.floor(spawnInterval * 1.5);
+        }
+
+        function getRandomEmoji() {
+            const emojis = ['💕', '💖', '🎂', '🎉', '🎊', '💝', '💗', '💓', '💞'];
+            return emojis[Math.floor(Math.random() * emojis.length)];
+        }
+
+        function createBarrage() {
+            if (isPaused || barrageContainer.children.length >= maxBarrageCount) {
+                return;
+            }
+
+            // 在移动端减少最大弹幕数量
+            if (window.innerWidth <= 768 && barrageContainer.children.length >= Math.floor(maxBarrageCount * 0.7)) {
+                return;
+            }
+
+            const lane = getAvailableLane();
+            if (lane === null) {
+                return;
+            }
+
+            const wish = birthdayWishes[Math.floor(Math.random() * birthdayWishes.length)];
+            const barrageItem = document.createElement('div');
+            barrageItem.classList.add('barrage-item');
+
+            // 添加emoji装饰
+            const shouldAddEmoji = Math.random() < 0.3; // 30%概率添加emoji
+            const displayText = shouldAddEmoji ? `${getRandomEmoji()} ${wish} ${getRandomEmoji()}` : wish;
+            barrageItem.textContent = displayText;
+
+            // 特殊效果应用
+            const effects = [];
+            if (Math.random() < 0.1) effects.push('barrage-neon'); // 10%概率霓虹效果
+            if (Math.random() < 0.05) effects.push('barrage-rainbow'); // 5%概率彩虹效果
+            if (Math.random() < 0.1) effects.push('barrage-wave'); // 10%概率波浪效果
+            if (Math.random() < 0.05) effects.push('barrage-3d'); // 5%概率3D效果
+
+            // 根据文字内容添加特殊效果
+            if (wish.includes('爱') || wish.includes('心')) {
+                effects.push('barrage-neon');
+            }
+
+            barrageItem.classList.add(...effects);
+
+            // 根据轨道设置垂直位置
+            const topPosition = (lane * laneHeight / window.innerHeight) * 100;
+            barrageItem.style.top = `${topPosition}vh`;
+
+            // 判断是否在中间区域（35%-65%），如果是则调整样式
+            const isCenterArea = topPosition >= 35 && topPosition <= 65;
+            if (isCenterArea) {
+                barrageItem.style.opacity = '0.4';
+                barrageItem.style.filter = 'blur(1px)';
+                barrageItem.style.textShadow = '1px 1px 2px rgba(0, 0, 0, 0.3)';
+            } else {
+                barrageItem.style.opacity = '0.95';
+            }
+
+            // 存储轨道信息
+            barrageItem.dataset.lane = lane;
+
+            // 随机设置字体大小 (稍微变化)
+            const fontSize = 1.2 + Math.random() * 0.8;
+            barrageItem.style.fontSize = `${fontSize}em`;
+
+            // 随机选择颜色
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            barrageItem.style.color = color;
+
+            // 随机应用字体样式
+            const fontStyles = ['font-style-1', 'font-style-2', 'font-style-3', 'font-style-4', 'font-style-5'];
+            const randomFontStyle = fontStyles[Math.floor(Math.random() * fontStyles.length)];
+            barrageItem.classList.add(randomFontStyle);
+
+            // 随机添加浮动动画（30%概率）
+            if (Math.random() < 0.3) {
+                barrageItem.classList.add('animate-float');
+            }
+
+            // 随机设置字间距
+            const letterSpacing = Math.random() * 2;
+            barrageItem.style.letterSpacing = `${letterSpacing}px`;
+
+            // 随机设置动画时长
+            const duration = minDuration + Math.random() * (maxDuration - minDuration);
+            barrageItem.style.setProperty('--duration', `${duration}s`);
+
+            // 添加金色特效（5%概率）
+            if (Math.random() < 0.05) {
+                barrageItem.classList.add('golden');
+            }
+
+            barrageContainer.appendChild(barrageItem);
+
+            // 根据文字长度调整速度
+            const textLength = displayText.length;
+            const speedAdjustment = Math.min(1.5, Math.max(0.8, textLength / 20));
+            const adjustedDuration = parseFloat(barrageItem.style.getPropertyValue('--duration')) / speedAdjustment;
+            barrageItem.style.setProperty('--duration', `${adjustedDuration}s`);
+
+            // 添加点击事件
+            barrageItem.addEventListener('click', (e) => {
+                e.stopPropagation();
+                // 创建特殊的点击动画
+                const clickEffect = document.createElement('div');
+                clickEffect.className = 'click-heart';
+                clickEffect.style.left = e.clientX + 'px';
+                clickEffect.style.top = e.clientY + 'px';
+                clickEffect.innerHTML = '💖';
+                document.body.appendChild(clickEffect);
+                
+                // 移除动画效果
+                setTimeout(() => clickEffect.remove(), 1000);
+                
+                // 触发特殊效果
+                barrageItem.classList.add('barrage-rainbow');
+                setTimeout(() => barrageItem.classList.remove('barrage-rainbow'), 2000);
+            });
+
+            // 动画结束后移除弹幕并释放轨道
+            barrageItem.addEventListener('animationend', () => {
+                releaseLane(parseInt(barrageItem.dataset.lane));
+                barrageItem.remove();
+            });
+
+            // 性能优化：使用requestAnimationFrame和will-change
+            barrageItem.style.willChange = 'transform, opacity';
+            requestAnimationFrame(() => {
+                barrageItem.style.transform = 'translateX(100vw)';
+            });
+        }
+
+        // 初始生成一些弹幕，间隔更大以避免拥挤
+        for (let i = 0; i < 5; i++) {
+            setTimeout(createBarrage, i * 800);
+        }
+
+        // 监听窗口大小变化，更新轨道数
+        window.addEventListener('resize', () => {
+            const newTotalLanes = Math.floor(window.innerHeight / laneHeight);
+            // 如果轨道数减少，清除多余的轨道
+            if (newTotalLanes < totalLanes) {
+                for (let i = newTotalLanes; i < totalLanes; i++) {
+                    usedLanes.delete(i);
+                }
+            }
+            totalLanes = newTotalLanes;
+        });
+
+        // 自动调节弹幕效果
+        let currentPhase = 0;
+        const phases = [
+            { speed: 1.0, density: 1.0, duration: 10000 },    // 正常速度和密度
+            { speed: 1.2, density: 1.2, duration: 5000 },     // 稍快和稍密
+            { speed: 0.8, density: 1.5, duration: 5000 },     // 较慢和较密
+            { speed: 1.5, density: 0.8, duration: 5000 }      // 较快和较疏
+        ];
+
+        function updateBarrageParameters() {
+            const phase = phases[currentPhase];
+            currentSpeed = phase.speed;
+            currentDensity = phase.density;
+            spawnInterval = 1500 / currentDensity;
+
+            // 更新现有弹幕的速度
+            document.querySelectorAll('.barrage-item').forEach(item => {
+                const originalDuration = parseFloat(item.style.getPropertyValue('--duration'));
+                item.style.setProperty('--duration', `${originalDuration / currentSpeed}s`);
+            });
+
+            // 更新生成间隔
+            clearInterval(barrageInterval);
+            barrageInterval = setInterval(createBarrage, spawnInterval);
+
+            // 切换到下一个阶段
+            currentPhase = (currentPhase + 1) % phases.length;
+        }
+
+        // 定期切换弹幕效果
+        setInterval(updateBarrageParameters, 10000);
+
+        // 特殊效果：爱心形状弹幕
+        let heartFormationTimeout;
+        function createHeartFormation() {
+            const heartPoints = [];
+            let t = 0;  // 改为 let，因为这个变量需要递增
+            while (t < 2 * Math.PI) {
+                const scale = window.innerWidth <= 768 ? 6 : 10;
+                const x = 16 * Math.pow(Math.sin(t), 3);
+                const y = 13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t);
+                heartPoints.push({x: x * scale + window.innerWidth/2, y: -y * scale + window.innerHeight/2});
+                t += 0.1;
+            }
+            
+            heartPoints.forEach((point, index) => {
+                setTimeout(() => {
+                    const wish = birthdayWishes[Math.floor(Math.random() * birthdayWishes.length)];
+                    const barrageItem = document.createElement('div');
+                    barrageItem.classList.add('barrage-item', 'barrage-neon');
+                    barrageItem.textContent = wish;
+                    barrageItem.style.left = point.x + 'px';
+                    barrageItem.style.top = point.y + 'px';
+                    barrageContainer.appendChild(barrageItem);
+                    
+                    setTimeout(() => barrageItem.remove(), 3000);
+                }, index * 100);
+            });
+        }
+
+        // 每15秒触发一次爱心形状
+        setInterval(createHeartFormation, 15000);
+
+        // 页面加载完成后自动开始特效
+        window.addEventListener('load', () => {
+            // 立即创建一个爱心形状
+            setTimeout(createHeartFormation, 1000);
+            
+            // 初始化弹幕参数
+            updateBarrageParameters();
+            
+            // 创建初始的弹幕
+            for (let i = 0; i < 8; i++) {
+                setTimeout(createBarrage, i * 300);
+            }
+        });
+
+        // 定时生成弹幕
+        let barrageInterval = setInterval(createBarrage, spawnInterval);
+
+        // 更新弹幕生成间隔
+        function updateBarrageInterval() {
+            clearInterval(barrageInterval);
+            barrageInterval = setInterval(createBarrage, spawnInterval);
+        }
+
+        // 监听密度变化时更新生成间隔
+        densitySlider.addEventListener('change', updateBarrageInterval);
+
+        // 弹幕动画已经设置完成
+    </script>
+
+    <script>
+        // 鼠标/触摸跟随效果
+        const mouseFollower = document.querySelector('.mouse-follower');
+        let mouseX = 0, mouseY = 0;
+        let followerX = 0, followerY = 0;
+        let isTouchDevice = false;
+
+        // 检测是否为触摸设备
+        window.addEventListener('touchstart', function() {
+            isTouchDevice = true;
+            mouseFollower.style.display = 'none'; // 在触摸设备上隐藏鼠标跟随效果
+        }, {once: true});
+
+        // 处理鼠标移动
+        document.addEventListener('mousemove', (e) => {
+            if (!isTouchDevice) {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            }
+        });
+
+        // 处理触摸移动
+        document.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                mouseX = e.touches[0].clientX;
+                mouseY = e.touches[0].clientY;
+            }
+        }, { passive: true });
+
+        function updateFollower() {
+            if (!isTouchDevice) {
+                const dx = mouseX - followerX;
+                const dy = mouseY - followerY;
+                
+                followerX += dx * 0.2;
+                followerY += dy * 0.2;
+                
+                mouseFollower.style.transform = `translate(${followerX}px, ${followerY}px)`;
+            }
+            requestAnimationFrame(updateFollower);
+        }
+        updateFollower();
+
+        // 点击/触摸特效
+        function createHeartEffect(x, y) {
+            const heart = document.createElement('div');
+            heart.className = 'click-heart';
+            heart.innerHTML = '❤';
+            heart.style.left = x + 'px';
+            heart.style.top = y + 'px';
+            document.body.appendChild(heart);
+
+            heart.addEventListener('animationend', () => {
+                heart.remove();
+            });
+        }
+
+        // 处理点击事件
+        document.addEventListener('click', (e) => {
+            createHeartEffect(e.clientX, e.clientY);
+        });
+
+        // 处理触摸事件
+        document.addEventListener('touchstart', (e) => {
+            if (e.touches.length > 0) {
+                const touch = e.touches[0];
+                createHeartEffect(touch.clientX, touch.clientY);
+            }
+        }, { passive: true });
+    </script>
+</body>
+</html>
